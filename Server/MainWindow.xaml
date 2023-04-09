@@ -5,20 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Server"
         Loaded="Window_Loaded"
+        Closing="Window_Closing"
         mc:Ignorable="d"
         Title="Server" Height="450" Width="300">
     <StackPanel Orientation="Vertical">
         <StackPanel Orientation="Horizontal">
             <Label Content="IP:"/>
-            <TextBox x:Name="ServerIp" Text="127.0.0.1" Padding="4"/>
+            <TextBox x:Name="serverIp" Text="127.0.0.1"/>
             <Label Content="Port:"/>
-            <TextBox x:Name="ServerPort" Text="8090" Padding="4"/>
+            <TextBox x:Name="serverPort" Text="8090"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <Button Content="Start" x:Name="StartServer" Click="StartServer_Click"/>
-            <Label x:Name="ServerStatus" Content="OFF" Background="Red"/>
-            <Button Content="Stop" x:Name="StopServer" Click="StopServer_Click"/>
+            <Button Content="Start" x:Name="StartServer"
+                    Click="StartServer_Click"/>
+            <Label x:Name="serverStatus" Content="OFF" Background="Red"/>
+            <Button Content="Stop" x:Name="StopServer"
+                    Click="StopServer_Click"/>
         </StackPanel>
-        <TextBlock x:Name="ServerLogs" Text="Server Logs:&#10;" TextWrapping="Wrap"/>
+        <TextBlock x:Name="serverLogs" 
+                   Text="Server Logs:&#10;"
+                   TextWrapping="Wrap"/>
     </StackPanel>
 </Window>

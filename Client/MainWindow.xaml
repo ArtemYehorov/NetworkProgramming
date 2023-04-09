@@ -5,22 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
+        Loaded="Window_Loaded"
         Title="Client" Height="450" Width="300">
     <StackPanel Orientation="Vertical">
         <StackPanel Orientation="Horizontal">
-            <Label Content="IP:"/>
-            <TextBox x:Name="ServerIp" Text="127.0.0.1" Padding="4"/>
+            <Label Content="Server: IP:"/>
+            <TextBox x:Name="serverIp" Text="127.0.0.1"/>
             <Label Content="Port:"/>
-            <TextBox x:Name="ServerPort" Text="8090" Padding="4"/>
+            <TextBox x:Name="serverPort" Text="8090"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <Label Content="Nik:"/>
-            <TextBox Text="User1" x:Name="AuthorTextBox"/>
-            <Label x:Name="ServerStatus" Content="Message:"/>
-            <TextBox Text="Hello!" x:Name="messageTextBox"/>
-            <Button Content="Send" x:Name="SendButton" Click="SendButton_Click"/>
-            <Button Content="Check" x:Name="CheckButton" Click="CheckButton_Click"/>
+            <TextBox x:Name="authorTextBox" Text="User1"/>
+            <Label Content="Message:"/>
+            <TextBox x:Name="messageTextBox" Text="Hello!"/>
+            <Button Content="Send" x:Name="SendButton"
+                    Click="SendButton_Click"/>
         </StackPanel>
-        <TextBlock x:Name="ChatLogs" Text="Chat Logs:&#10;" TextWrapping="Wrap"/>
+        <ScrollViewer Height="330">
+            <StackPanel x:Name="chatContainer"
+                        Orientation="Vertical">
+
+            </StackPanel>
+        </ScrollViewer>
+        <TextBlock x:Name="chatLogs" 
+                   Text="Chat Logs:&#10;"
+                   TextWrapping="Wrap"/>
     </StackPanel>
 </Window>
