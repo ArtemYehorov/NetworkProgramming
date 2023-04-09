@@ -92,6 +92,21 @@ namespace Client
                 // --------------------- соединение установлено ----------------------
                 // сервер начинает с приема данных, поэтому клиент начинает с посылки
                 // формируем объект-запрос
+
+                string dateTimeString;
+
+                if (chatMessage.Moment.Date == DateTime.Today)
+                {
+                    dateTimeString = chatMessage.Moment.ToShortTimeString();
+                }
+                else
+                {
+                    dateTimeString = chatMessage.Moment.ToString();
+                }
+                if (string.IsNullOrEmpty(chatMessage.Text))
+                {
+                    chatMessage.Text = "Empty message";
+                }
                 ClientRequest request = new()
                 {
                     Action = "Message",
@@ -163,7 +178,7 @@ namespace Client
                             Content = message.Text,
                             Background = Brushes.Lime,
                             Margin = new Thickness(10, 5, 10, 5),
-                            HorizontalAlignment = HorizontalAlignment.Left,
+                            HorizontalAlignment = message.Author == "Me" ? HorizontalAlignment.Right : HorizontalAlignment.Left,
                         };
                         chatContainer.Children.Add(messageLabel);
                     }
