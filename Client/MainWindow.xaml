@@ -14,9 +14,12 @@
             <TextBox x:Name="ServerPort" Text="8090" Padding="4"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
+            <Label Content="Nik:"/>
+            <TextBox Text="User1" x:Name="AuthorTextBox"/>
             <Label x:Name="ServerStatus" Content="Message:"/>
             <TextBox Text="Hello!" x:Name="messageTextBox"/>
             <Button Content="Send" x:Name="SendButton" Click="SendButton_Click"/>
+            <Button Content="Check" x:Name="CheckButton" Click="CheckButton_Click"/>
         </StackPanel>
         <TextBlock x:Name="ChatLogs" Text="Chat Logs:&#10;" TextWrapping="Wrap"/>
     </StackPanel>

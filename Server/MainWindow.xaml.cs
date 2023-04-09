@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using System.Text.Json;
 
 namespace Server
 {
@@ -25,9 +26,11 @@ namespace Server
     public partial class MainWindow : Window
     {
         private Socket? ListenSocket; // Слушающий сокет - постоянно активный пока сервер включен
+        private List<ChatMessage> messages; //все приходящие сообщения сохранятся 
         public MainWindow()
         {
             InitializeComponent();
+            messages = new();
         }
         private void StartServer_Click(object sender, RoutedEventArgs e)
         {
@@ -83,11 +86,54 @@ namespace Server
                     } while (socket.Available > 0);                         // Пока есть данные в сокете 
                                                                             
                     String str = sb.ToString();                             // Собираем все фрагменты в одну строку 
-                    Dispatcher.Invoke(() =>                                 // Добавляем полученные данные к логам сервера. Используем  Dispatcher.Invoke для доступа к UI
-                    ServerLogs.Text += str + "\n");                         
-                                                                            
-                                                                            // Отправляем клиенту ответ - отчет о получении сообщения
-                    str = "Received at " + DateTime.Now;                    // В обратном порядке - сначала строка 
+                   // Dispatcher.Invoke(() =>                                 // Добавляем полученные данные к логам сервера. Используем  Dispatcher.Invoke для доступа к UI
+                   // ServerLogs.Text += str + "\n");
+
+                    //Разбираем JSON
+                    var request = JsonSerializer.Deserialize<ClientRequest>(str);
+                    //Определяем ти запроса (action) и готовим ответ
+                    ServerResponse response = new();
+                    switch (request?.Action)
+                    {
+                        case "Message":
+                            //извлекаем сообщение из запроса 
+                            ChatMessage message = new()
+                            {
+                                Author = request.Author,
+                                Text = request.Text,
+                                Moment = request.Moment
+                            };
+                            //Сохраняем его в коллекции сервера
+                            messages.Add(message);
+                            //Передаём его же как подтвержение получения
+                            response.Status = "OK";
+                            response.Messages = new() { message};
+                            Dispatcher.Invoke(() => ServerLogs.Text += $"{request.Moment.ToShortTimeString()} {request.Author}: {request.Text}");
+                            break;
+                        case "Get":
+                            String Author = request.Author;
+                            DateTime LastSyncMoment = request.Moment;
+                            //Собираем сообщение НЕ данного автора, время которых больше чем LastSyncMoment
+                            response.Status = "OK";
+                            response.Messages = new();
+                            foreach (var m in messages)
+                            {
+                                if (!m.Author.Equals(Author) && m.Moment > LastSyncMoment)
+                                {
+                                    response.Messages.Add(m);
+                                }
+                            }
+
+                            break;
+                        default:
+                            response.Status = "Error!";
+                            break;
+                    }
+
+
+                    // Отправляем клиенту ответ 
+                    str = JsonSerializer.Serialize(request, new JsonSerializerOptions() { Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping });   
+                    // В обратном порядке -сначала строка                
                     socket.Send(Encoding.UTF8.GetBytes(str));               // затем переводим в байты по заданной кодировке и отправляем в socket
                                                                             
                                                                             
