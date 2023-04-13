@@ -1,0 +1,43 @@
+﻿<Window x:Class="Http.ApiWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Http"
+        mc:Ignorable="d"
+       Title="ApiWindow" Height="450" Width="800">
+    <Grid ShowGridLines="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0" Orientation="Vertical">
+            <Button x:Name="NbuToday"
+                    Content="Курс валют НБУ на сегодня"
+                    Margin="10 5"
+                    Click="NbuToday_Click"/>
+        </StackPanel>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0"
+                   HorizontalAlignment="Center" 
+                   FontWeight="DemiBold">Результат</Label>
+            <ListView Grid.Row="1" ItemsSource="{Binding NbuRates}" 
+                      GridViewColumnHeader.Click="ListView_Click">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="cc"   DisplayMemberBinding="{Binding Path=cc}"/>
+                        <GridViewColumn Header="r030" DisplayMemberBinding="{Binding Path=r030}"/>
+                        <GridViewColumn Header="txt"  DisplayMemberBinding="{Binding Path=txt}"/>
+                        <GridViewColumn Header="rate" DisplayMemberBinding="{Binding Path=rate}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </Grid>
+</Window>
