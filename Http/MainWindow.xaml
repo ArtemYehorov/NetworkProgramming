@@ -1,0 +1,49 @@
+﻿<Window x:Class="Http.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Http"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid ShowGridLines="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Vertical" Grid.Column="0">
+            <Label HorizontalAlignment="Center" FontWeight="DemiBold">Запросы</Label>
+            <StackPanel Orientation="Horizontal" Margin="20 10">
+                <TextBox x:Name="url1TextBox" Text="https://itstep.org"/>
+                <Button x:Name="get1Button" Content="GET" Click="get1Button_Click"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="20 10">
+                <TextBox x:Name="url2TextBox" Text="https://itstep.org"/>
+                <Button x:Name="get2Button" Content="GET Full" Click="get2Button_Click"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="20 10">
+                <TextBox x:Name="url3TextBox" Text="https://itstep.org"/>
+                <Button x:Name="head3Button" Content="Head" Click="head3Button_Click"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="20 10">
+                <TextBox x:Name="url4TextBox" Text="https://itstep.org"/>
+                <Button x:Name="options4Button" Content="Options" Click="options4Button_Click"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="20 10">
+                <TextBox x:Name="url5TextBox" Text="https://www.random.org/passwords/?num=5&amp;len=8&amp;format=html&amp;rnd=new"/>
+                <Button x:Name="options5Button" Content="Options" Click="get5Button_Click"/>
+            </StackPanel>
+        </StackPanel>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" FontWeight="SemiBold" Height="30" >Результат</Label>
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <TextBlock x:Name="resultTextBlock"></TextBlock>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Window>
