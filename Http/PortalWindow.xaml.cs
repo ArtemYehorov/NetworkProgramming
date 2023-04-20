@@ -17,7 +17,7 @@ using System.Windows.Shapes;
 namespace Http
 {
     /// <summary>
-    /// Логика взаимодействия для PortalWindow.xaml
+    /// Interaction logic for PortalWindow.xaml
     /// </summary>
     public partial class PortalWindow : Window
     {
@@ -59,6 +59,16 @@ namespace Http
         private void ApiRequests_Click(object sender, RoutedEventArgs e)
         {
             new ApiWindow().Show();
+        }
+
+        private void ApiCoincap_Click(object sender, RoutedEventArgs e)
+        {
+            new CoincapWindow().Show();
+        }
+
+        private void SmtpButton_Click(object sender, RoutedEventArgs e)
+        {
+            new SmtpWindow().Show();
         }
     }
 }

@@ -12,9 +12,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notes", "Notes", "{5B81B0F5
 		chat.txt = chat.txt
 		client-server.txt = client-server.txt
 		http.txt = http.txt
+		SMPT.txt = SMPT.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Http", "Http\Http.csproj", "{BB382D6F-415E-47B4-983B-00C302E09FB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Http", "Http\Http.csproj", "{BB382D6F-415E-47B4-983B-00C302E09FB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
